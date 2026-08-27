@@ -14,9 +14,6 @@ function AnimatedWord({ text, startDelay }: { text: string; startDelay: number }
           style={
             {
               animationDelay: `${startDelay + i * 45}ms`,
-              // Negative delay starts each letter's infinite glitch flicker
-              // already mid-cycle, so the bursts ripple across the name
-              // instead of firing on every letter in perfect unison.
               "--glitch-delay": `${-(i * 0.37)}s`,
             } as CSSProperties
           }
@@ -34,10 +31,7 @@ export default function Hero() {
       id="top"
       className="relative overflow-hidden border-b border-line px-5 pt-14 pb-10 sm:px-8 sm:pt-20"
     >
-      {/* decorative spider web, behind the ambient glow and content */}
       <SpiderWeb />
-
-      {/* ambient glow accents */}
       <HeroGlow />
 
       <div className="relative mx-auto max-w-6xl">
@@ -70,9 +64,9 @@ export default function Hero() {
           className="hero-in mt-5 max-w-xl text-base text-muted sm:text-lg"
           style={{ animationDelay: "660ms" }}
         >
-          Front-end developer &amp; Computer Science student blending code
-          and design to build interfaces with real character — from Figma
-          systems to shipped e-commerce.
+          Front-end developer &amp; Computer Science student turning ideas
+          into interfaces with real character — from Figma prototypes to
+          fully shipped, production-ready websites.
         </p>
 
         <div className="hero-in mt-6" style={{ animationDelay: "720ms" }}>
