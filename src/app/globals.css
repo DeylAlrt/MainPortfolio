@@ -1,0 +1,384 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #07060a;
+  --bg-soft: #0d0b13;
+  --surface: #15121c;
+  --line: #2a2433;
+  --ink: #f6f3f8;
+  --muted: #9b93a8;
+  --red: #ff2e4d;
+  --red-dim: #b21633;
+  --purple: #8a3bf2;
+  --purple-dim: #4f1f8f;
+  --cyan: #35e6ff;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-soft: var(--bg-soft);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-red: var(--red);
+  --color-red-dim: var(--red-dim);
+  --color-purple: var(--purple);
+  --color-purple-dim: var(--purple-dim);
+  --color-cyan: var(--cyan);
+  --font-display: var(--font-anton);
+  --font-sans: var(--font-space);
+}
+
+* {
+  scrollbar-color: var(--red-dim) var(--bg);
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-space), Arial, Helvetica, sans-serif;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(246, 243, 248, 0.05) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+::selection {
+  background: var(--red);
+  color: #0a0810;
+}
+
+/* Glitch / chromatic-aberration display heading.
+   Display is intentionally left to the consumer's own class (e.g. Tailwind
+   "block" or "inline-block") — declaring it here would win over a utility
+   class of equal specificity regardless of source order, since Tailwind's
+   utilities live in a lower-priority cascade layer than this plain rule. */
+.glitch-text {
+  position: relative;
+  font-family: var(--font-anton), Impact, sans-serif;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.75;
+}
+
+/* Into-the-Spider-Verse-style dimensional glitch: the red/purple duplicate
+   layers sit still most of the time, then rip through a rapid, sliced
+   RGB-split burst — bigger offsets, a slight skew, and a brightness spike —
+   before settling back. --glitch-delay (set per-letter in Hero.tsx,
+   negative) starts each letter mid-cycle so the bursts ripple across the
+   name instead of firing on every letter in lockstep. */
+.glitch-text::before {
+  color: var(--red);
+  animation: glitch-shift-red 3.6s steps(1, end) infinite;
+  animation-delay: var(--glitch-delay, 0s);
+}
+
+.glitch-text::after {
+  color: var(--purple);
+  animation: glitch-shift-purple 3.6s steps(1, end) infinite;
+  animation-delay: var(--glitch-delay, 0s);
+}
+
+@keyframes glitch-shift-red {
+  0%,
+  80%,
+  100% {
+    transform: translate(3px, 2px);
+    clip-path: inset(0 0 0 0);
+    filter: brightness(1);
+  }
+  81% {
+    transform: translate(-14px, 4px) skewX(-6deg);
+    clip-path: inset(8% 0 68% 0);
+    filter: brightness(1.6);
+  }
+  82% {
+    transform: translate(12px, -7px) skewX(4deg);
+    clip-path: inset(74% 0 3% 0);
+    filter: brightness(0.7);
+  }
+  83% {
+    transform: translate(-10px, 6px);
+    clip-path: inset(24% 0 52% 0);
+    filter: brightness(1.5);
+  }
+  84% {
+    transform: translate(13px, -3px) skewX(-3deg);
+    clip-path: inset(2% 0 84% 0);
+    filter: brightness(1);
+  }
+  85% {
+    transform: translate(-8px, 5px);
+    clip-path: inset(58% 0 12% 0);
+    filter: brightness(1.4);
+  }
+  86%,
+  100% {
+    transform: translate(3px, 2px);
+    clip-path: inset(0 0 0 0);
+    filter: brightness(1);
+  }
+}
+
+@keyframes glitch-shift-purple {
+  0%,
+  81%,
+  100% {
+    transform: translate(-3px, -2px);
+    clip-path: inset(0 0 0 0);
+    filter: brightness(1);
+  }
+  82% {
+    transform: translate(11px, -4px) skewX(5deg);
+    clip-path: inset(52% 0 22% 0);
+    filter: brightness(1.5);
+  }
+  83% {
+    transform: translate(-13px, 6px) skewX(-4deg);
+    clip-path: inset(10% 0 70% 0);
+    filter: brightness(0.75);
+  }
+  84% {
+    transform: translate(9px, -6px);
+    clip-path: inset(78% 0 4% 0);
+    filter: brightness(1.6);
+  }
+  85% {
+    transform: translate(-12px, 3px) skewX(3deg);
+    clip-path: inset(30% 0 48% 0);
+    filter: brightness(1);
+  }
+  86% {
+    transform: translate(10px, -5px);
+    clip-path: inset(4% 0 86% 0);
+    filter: brightness(1.4);
+  }
+  87%,
+  100% {
+    transform: translate(-3px, -2px);
+    clip-path: inset(0 0 0 0);
+    filter: brightness(1);
+  }
+}
+
+.section-heading {
+  font-family: var(--font-anton), Impact, sans-serif;
+  letter-spacing: -0.01em;
+}
+
+.hairline {
+  border-color: var(--line);
+}
+
+.dot-badge {
+  background: radial-gradient(circle at 30% 30%, var(--red), var(--red-dim) 70%);
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 14s linear infinite;
+}
+
+/* Lenis (SmoothScroll.tsx) owns easing for wheel/touch/anchor scrolling;
+   native smooth-scroll would fight its rAF loop, so keep this auto. */
+html {
+  scroll-behavior: auto;
+}
+
+/* ---------- Scroll-reveal system ---------- */
+.reveal {
+  transition-property: opacity, transform, filter;
+  transition-duration: 0.9s;
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-up {
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateY(64px);
+}
+
+.reveal-fade {
+  opacity: 0;
+  filter: blur(4px);
+}
+
+.reveal-left {
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateX(-64px);
+}
+
+.reveal-right {
+  opacity: 0;
+  filter: blur(6px);
+  transform: translateX(64px);
+}
+
+.reveal-scale {
+  opacity: 0;
+  filter: blur(6px);
+  transform: scale(0.8) translateY(24px);
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
+
+/* ---------- Hero entrance ---------- */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-in {
+  opacity: 0;
+  animation: hero-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes hero-letter-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.9em) rotate(8deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+.hero-letter {
+  opacity: 0;
+  animation: hero-letter-in 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ---------- Underline link hover ---------- */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 1px;
+  width: 100%;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.link-underline:hover::after,
+.link-underline.is-active::after {
+  transform: scaleX(1);
+}
+
+/* ---------- Spider web background ---------- */
+@keyframes web-sway {
+  0%,
+  100% {
+    transform: rotate(-0.6deg);
+  }
+  50% {
+    transform: rotate(0.6deg);
+  }
+}
+
+.web-sway {
+  transform-origin: top left;
+  animation: web-sway 9s ease-in-out infinite;
+}
+
+/* ---------- Scroll progress bar ---------- */
+.scroll-progress {
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--red), var(--purple));
+}
+
+/* ---------- Row hover shift ---------- */
+.row-hover {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.35s ease, border-color 0.35s ease;
+}
+
+.row-hover:hover {
+  transform: translateX(8px);
+}
+
+/* ---------- Spidey-sense burst (About.tsx / SpideySense.tsx) ----------
+   The actual spidey-sense.png graphic bursts in above the photo with an
+   overshooting scale/rotate + glow, then settles into a continuous pulse
+   for as long as the photo is hovered. */
+.spidey-sense-img {
+  opacity: 0;
+  transform: scale(0.35) rotate(-12deg);
+  filter: drop-shadow(0 0 0 transparent);
+}
+
+.group:hover .spidey-sense-img {
+  animation: spidey-image-burst 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 1 forwards,
+    spidey-image-pulse 1.3s ease-in-out 0.7s infinite;
+}
+
+@keyframes spidey-image-burst {
+  0% {
+    opacity: 0;
+    transform: scale(0.35) rotate(-12deg);
+    filter: drop-shadow(0 0 0 transparent);
+  }
+  55% {
+    opacity: 1;
+    transform: scale(1.18) rotate(5deg);
+    filter: drop-shadow(0 0 10px var(--red)) drop-shadow(0 0 18px var(--purple));
+  }
+  75% {
+    transform: scale(0.95) rotate(-2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 6px var(--red)) drop-shadow(0 0 11px var(--purple));
+  }
+}
+
+@keyframes spidey-image-pulse {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    filter: drop-shadow(0 0 6px var(--red)) drop-shadow(0 0 11px var(--purple));
+  }
+  50% {
+    transform: scale(1.07) rotate(-1.5deg);
+    filter: drop-shadow(0 0 11px var(--purple)) drop-shadow(0 0 18px var(--red));
+  }
+}
+
