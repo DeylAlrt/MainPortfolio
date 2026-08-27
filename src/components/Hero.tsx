@@ -70,9 +70,9 @@ export default function Hero() {
           className="hero-in mt-5 max-w-xl text-base text-muted sm:text-lg"
           style={{ animationDelay: "660ms" }}
         >
-          Front-end developer &amp; Computer Science student blending code
-          and design to build interfaces with real character — from Figma
-          systems to shipped e-commerce.
+          Front-end developer &amp; Computer Science student turning ideas
+          into interfaces with real character — from Figma prototypes to
+          fully shipped, production-ready websites.
         </p>
 
         <div className="hero-in mt-6" style={{ animationDelay: "720ms" }}>

@@ -42,13 +42,12 @@ export default function About() {
             </h2>
 
             <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-              I&apos;m a Computer Science student with a strong passion for
-              blending artistry and technology to build innovative, original
-              solutions. I bring high energy, adaptability, and an unwavering
-              commitment to quality in everything I do — always eager to
-              learn from others, rapidly pick up new tools, and push my
-              technical and creative abilities further. Ready to tackle
-              challenging projects that drive real impact.
+              A Computer Science student who has a solid background in
+              software development and problem-solving skills. Willingness
+              to work in a fast-paced setting as evidenced by the ability to
+              learn new technologies and produce high quality and impactful
+              projects in a timely fashion. Desire to join a progressive
+              team with a technical role and collaborative spirit.
             </p>
           </Reveal>
 
